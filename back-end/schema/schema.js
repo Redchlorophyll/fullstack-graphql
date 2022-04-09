@@ -11,23 +11,8 @@ const {
   GraphQLID,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
 } = graphql;
-
-//dummy data
-const books = [
-  { name: "Name Of The Wind", genre: "Fantasy", id: "1", authorId: "1" },
-  { name: "Kuyang", genre: "Horor", id: "2", authorId: "2" },
-  { name: "History Romance", genre: "Documenter", id: "3", authorId: "3" },
-  { name: "Siege of Tunnenburg", genre: "Fantasy", id: "4", authorId: "1" },
-  { name: "The Son of Turin", genre: "Fantasy", id: "5", authorId: "3" },
-  { name: "Art of War", genre: "Documenter", id: "6", authorId: "2" },
-];
-
-const authors = [
-  { name: "Patrick Rothchild", age: 44, id: "1" },
-  { name: "William Jack", age: 24, id: "2" },
-  { name: "Robbert John Doe", age: 31, id: "3" },
-];
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -99,8 +84,8 @@ const Mutation = new GraphQLObjectType({
     addAuthor: {
       type: AuthorType,
       args: {
-        name: { type: GraphQLString },
-        age: { type: GraphQLInt },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
       },
       resolve(parent, args) {
         let author = new Author({
@@ -113,9 +98,9 @@ const Mutation = new GraphQLObjectType({
     addBook: {
       type: BookType,
       args: {
-        name: { type: GraphQLString },
-        genre: { type: GraphQLString },
-        authorId: { type: GraphQLID },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        genre: { type: new GraphQLNonNull(GraphQLString) },
+        authorId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         let book = new Book({
