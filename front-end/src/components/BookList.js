@@ -20,7 +20,7 @@ function BookList() {
         return <li key={book.id}>{book.name}</li>;
       });
     }
-  };
+  };    
   if (!loading) console.log(data.books);
   return (
     <div>
