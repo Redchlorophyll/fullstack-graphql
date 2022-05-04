@@ -31,7 +31,7 @@ function AddBook() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addBook();
+    addBook({ variables: getQuery });
   };
   return (
     <form id="add-book" onSubmit={(e) => onSubmit(e)}>
