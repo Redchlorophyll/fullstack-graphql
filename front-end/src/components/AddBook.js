@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { getAuthorQuery } from "services/author.service";
+import { addBookMutation } from "services/book.service";
 
 function AddBook() {
   const { loading, error, data } = useQuery(getAuthorQuery);
+  const [addBook, { loading: bookLoading, error: bookError, data: bookData }] =
+    useMutation(addBookMutation);
+
   const [getQuery, setQuery] = useState({
     name: "",
     genre: "",
@@ -27,7 +31,7 @@ function AddBook() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(getQuery);
+    addBook();
   };
   return (
     <form id="add-book" onSubmit={(e) => onSubmit(e)}>
