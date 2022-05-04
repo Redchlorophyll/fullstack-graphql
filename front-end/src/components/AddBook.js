@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { getAuthorQuery } from "services/author.service";
-import { addBookMutation } from "services/book.service";
+import { addBookMutation, getBookQuery } from "services/book.service";
 
 function AddBook() {
   const { loading, error, data } = useQuery(getAuthorQuery);
@@ -31,7 +31,7 @@ function AddBook() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addBook({ variables: getQuery });
+    addBook({ variables: getQuery, refetchQueries: [{ query: getBookQuery }] });
   };
   return (
     <form id="add-book" onSubmit={(e) => onSubmit(e)}>
